@@ -1,0 +1,33 @@
+services:
+  frontend:
+    build:
+      context: ./giveaway-chess
+      dockerfile: Dockerfile.dev
+    ports:
+      - "3478:3000"  # Using port 3478 instead of 3000
+    volumes:
+      - ./giveaway-chess:/app
+      - /app/node_modules
+    depends_on:
+      - backend
+    networks:
+      - giveaway-chess-network
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile.dev
+    environment:
+      - FLASK_APP=app.py
+      - FLASK_ENV=development
+      - FLASK_DEBUG=1
+    ports:
+      - "5566:5000"  # Using port 5566 instead of 5000
+    volumes:
+      - ./backend:/app
+    networks:
+      - giveaway-chess-network
+
+networks:
+  giveaway-chess-network:
+    driver: bridge

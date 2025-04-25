@@ -1,0 +1,29 @@
+services:
+  frontend:
+    build:
+      context: ./giveaway-chess
+      dockerfile: Dockerfile.prod
+    ports:
+      - "8089:80"  # Using port 8089 instead of 80
+    depends_on:
+      - backend
+    networks:
+      - giveaway-chess-network
+    restart: unless-stopped
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile.prod
+    environment:
+      - FLASK_APP=app.py
+      - FLASK_ENV=production
+    ports:
+      - "7654:5000"  # Using port 7654 instead of 5000
+    networks:
+      - giveaway-chess-network
+    restart: unless-stopped
+
+networks:
+  giveaway-chess-network:
+    driver: bridge
