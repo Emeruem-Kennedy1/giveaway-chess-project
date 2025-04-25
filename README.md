@@ -82,8 +82,8 @@ If you prefer to run Docker commands directly:
 docker-compose -f docker-compose.dev.yml up --build
 
 # Access at:
-# - Frontend: http://localhost:3000
-# - Backend: http://localhost:5000
+# - Frontend: http://localhost:3478
+# - Backend: http://localhost:5478
 ```
 
 #### Production Environment
